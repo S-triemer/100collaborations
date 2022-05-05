@@ -18,4 +18,13 @@
 .playing-field > div {
   border: 1px solid #000;
   cursor: pointer;
+  position: relative;
+}
+
+.bi {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 3rem;
 }
