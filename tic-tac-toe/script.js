@@ -16,10 +16,13 @@ class TicTacToe {
     //Get all the tiles
     let tiles = document.querySelectorAll('.tile')
     
+    let winner = ''
     //Check if board has been created and has 9 squares  
     if (Array.isArray(this.board) && this.board.flat().length == 9) {
-        //Get the innerText from each tile
+        //Get the textContent from each tile
+        //Change this if textContent is not where you store player symbolss
         let fBoard = this.board.flat().map((tile, index) => tiles[index].textContent)
+        
         //Get the squares matching symbolPlayer1
         let p1Squares = fBoard.reduce((arr, el, ind) => {
         if (fBoard[ind] == this.symbolPlayer1) {
@@ -36,22 +39,28 @@ class TicTacToe {
       }, [])
       //Win conditions
       const wins = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7], [2,5,8], [0,4,8], [6,4,2]]
+    
       wins.forEach((line) => {
         if(p1Squares.includes(line[0]) && p1Squares.includes(line[1]) && p1Squares.includes(line[2])) {
           //Player 1 wins
-          return 'Player 1'
+        
+          winner = 'Player 1'
         }
         if(p2Squares.includes(line[0]) && p2Squares.includes(line[1]) && p2Squares.includes(line[2])) {
           //Player 2 wins
-          return 'Player 2'
+         
+          winner =  'Player 2'
         }
       })
       //Check if all squares are picked
-      if(p1Squares.length + p2Squares.length == 9) {
-        return 'Draw'
+      if(p1Squares.length + p2Squares.length == 9 && winner === '') {
+        winner = 'Draw'
+      } else if (winner === '') {
+        //Keep playing
+        winner =  'Keep playing!'
       }
-      //Keep playing
-      return 'Keep playing!'
+      
+      return winner
     }
   }
   //Method that resets the board to the beginning
@@ -83,5 +92,5 @@ class TicTacToe {
 
 //create the game object from TicTacToe
 let game = new TicTacToe([], 'X', 'O', true)
-game.board = game.createBoard()
+game.board = [['X','X','X'],['O','X','O'], ['X', 'O','O']]
 console.log(game.checkForWin())
